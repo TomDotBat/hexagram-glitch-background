@@ -1,0 +1,21 @@
+body {
+    background-color: black;
+    overflow: hidden;
+}
+
+.hexagram {
+    font-size: 1rem;
+    color: rgba(0, 0, 0, 255);
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    transition: color 1000ms linear;
+    -ms-transition: color 1000ms linear;
+    -o-transition: color 1000ms linear;
+    -moz-transition: color 1000ms linear;
+    -webkit-transition: color 1000ms linear;
+}
