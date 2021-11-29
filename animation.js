@@ -1,10 +1,10 @@
 const HEXAGRAM = document.getElementsByClassName("hexagram")[0];
 
-const TEXT = HEXAGRAM.innerHTML;
+const HEXAGRAM_TEXT = HEXAGRAM.innerHTML;
 HEXAGRAM.innerHTML = "";
 
-const TEXT_WIDTH = TEXT.split("\n").reduce((longest, line) => line.length > longest ? line.length : longest, 0);
-const LAST_LINE_START_POS = TEXT.lastIndexOf("\n");
+const TEXT_WIDTH = HEXAGRAM_TEXT.split("\n").reduce((longest, line) => line.length > longest ? line.length : longest, 0);
+const LAST_LINE_START_POS = HEXAGRAM_TEXT.lastIndexOf("\n");
 
 let delay = (time) => new Promise(resolve => setTimeout(resolve, time));
 let random = (min, max) => Math.floor(Math.random() * (max - min)) + min;
@@ -12,16 +12,16 @@ let random = (min, max) => Math.floor(Math.random() * (max - min)) + min;
 let typeOut = async () => {
     const SPACER_LINE = "\n" + " ".repeat(TEXT_WIDTH);
 
-    for (let i = 0; i < TEXT.length; i++) {
-        if (TEXT[i] === " " || TEXT[i] === "\n")
+    for (let i = 0; i < HEXAGRAM_TEXT.length; i++) {
+        if (HEXAGRAM_TEXT[i] === " " || HEXAGRAM_TEXT[i] === "\n")
             continue;
 
-        HEXAGRAM.innerHTML = TEXT.substring(0, i) + (i > LAST_LINE_START_POS ? "" : SPACER_LINE);
+        HEXAGRAM.innerHTML = HEXAGRAM_TEXT.substring(0, i) + (i > LAST_LINE_START_POS ? "" : SPACER_LINE);
 
         await delay(random(5, 18));
     }
 
-    HEXAGRAM.innerHTML = TEXT;
+    HEXAGRAM.innerHTML = HEXAGRAM_TEXT;
 };
 
 const COLORS = ["red", "green", "blue"];
@@ -59,24 +59,6 @@ let startGlitching = async () => {
     }
 };
 
-let startRandomReplacements = async () => {
-    while (true) {
-        let text = HEXAGRAM.innerHTML;
-        let randomIndex = random(0, TEXT.length);
-
-        if (text[randomIndex] === " "
-            || text[randomIndex] === "."
-            || text[randomIndex] === "\n")
-            continue;
-
-        HEXAGRAM.innerHTML = text.substring(0, randomIndex)
-            + String.fromCharCode(random(33, 126))
-            + text.substring(randomIndex + 1);
-
-        await delay(random(5, 18));
-    }
-};
-
 (async () => {
     HEXAGRAM.style.color = "rgb(220, 220, 220)";
 
@@ -85,5 +67,4 @@ let startRandomReplacements = async () => {
     await delay(1000);
 
     startGlitching();
-    startRandomReplacements();
 })();
